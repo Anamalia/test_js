@@ -32,33 +32,63 @@
         nam(name, age, family);
 
     var param = 20;
+    var para = {name1: 10, name2: 'привет'};
    function par(param1, param2) {
-       var param1 = {name1: 10, name2: 'привет'};
-
-       console.log(param1.name1 + param1.name2);
+       var res = param1 + param2;
+       return res;
     }
-    par();
 
-        var car = {
-            stamp : 'опель',
-            color : 'красный',
-            transmission : 5,
-            fuel : 'бензин',
-            engine : function () {
-                var num = [1, 2, 3, 4];
-                if(typeof this.num == 'number'){
-                    num.push(6);
-                    console.log(car);
-                }
-                }
-        }
-        console.log(car.engine());
-
+    var rest = par(para.name2, para.name1);
+     console.log(rest);
     */
-    var array2 = 'My_SOme STring WithBad';
+        var car = {
+            stamp          : 'опель',
+            color          : 'красный',
+            transmission   : 5,
+            fuel           : 'бензин',
+            listPassengers : false,
+            starting       : false,
+            endMovement    : false,
+            stopped        : function ( ) {
+                if(this.starting == false){
+                   this.starting = true;
+                    this.move();
+                    this.listPassengers = true;
+                    console.log('стою');
+                    console.log('добавил пасажира');
+                }
+            },
+            move : function ( ) {
+                if(this.starting == true) {
+                    this.starting = false;
+                    console.log('двигаюсь');
+                }
+            }
+        };
+            car.stopped();
+            car.move();
+            car.stopped();
+            car.move();
 
-        console.log(array2.indexOf('a', 'A'));
-        console.log(array2.toUpperCase());
+
+        function ucFirst(str) {
+            var newStr = str.indexOf('t').toUpperCase();
+            for(var i=0; i < str.length; i++) {
+             newStr += str.indexOf(i);
+        }
+        return newStr;
+    }
+
+    console.log( ucFirst('my_some string withbad') );
+
+
+   function testFunction(param1, param2, param3) {
+       param1 = param1.toUpperCase();
+       var num1 = param1 + param2;
+       param3 = num1;
+       return param3;
+   }
+        console.log(testFunction('abc', 10, '20'));
 
     </script>
 </body>
