@@ -46,7 +46,7 @@
             color          : 'красный',
             transmission   : 5,
             fuel           : 'бензин',
-            listPassengers : false,
+            listPassengers : [],
             starting       : false,
             endMovement    : false,
             stopped        : function ( ) {
@@ -58,6 +58,13 @@
                     console.log('добавил пасажира');
                 }
             },
+            addPass: function (passer) {
+                if (this.listPassengers.length < 5){
+                    this.listPassengers.push(passer);
+                    console.log('Мы в машине' , car.listPassengers);
+
+                }
+            },
             move : function ( ) {
                 if(this.starting == true) {
                     this.starting = false;
@@ -65,23 +72,29 @@
                 }
             }
         };
+            car.addPass('Виталий');
+            car.addPass('Света');
+            car.addPass('Женя');
+            car.addPass('Марина');
+            car.addPass('Даша');
+            car.addPass('Даня');
             car.stopped();
             car.move();
             car.stopped();
             car.move();
 
-
+/*
         function ucFirst(str) {
-           /* var newStr = str.indexOf('t').toUpperCase();
+            var newStr = str.indexOf('t').toUpperCase();
             for(var i=0; i < str.length; i++) {
-             newStr += str.indexOf(i);*/
-            str. = str.replace ()
+             newStr += str.indexOf(i);
+            str. = str.replace ('t', 'T')
         }
-        return newStr;
+        return str;
     }
 
     console.log( ucFirst('my_some string withbad') );
-
+    */
 
    function testFunction(param1, param2, param3) {
        param1 = param1.toUpperCase();
