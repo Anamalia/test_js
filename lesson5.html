@@ -1,104 +1,189 @@
+<!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title></title>
 </head>
 <body>
-<div id='test-id'>
-    <div id="test-id2">
-        <h1 class="test-class">hello!</h1>
-    </div>
-    <div id="content-id">
-        <div class="test-class-2" accesskey="20" custom-attribute="custom-value" id="p-holder">
-            <p>Text1</p>
-            <p><b>BoldText2 with whitespaces</b> and <a href="#">Link</a></p>
-        </div>
-    </div>
-    <input type="text" id="input-text">
-</div>
 <script type="text/javascript">
 
-    /*
-     document.getElementById() — позволяет получить элемент по его ID.
-     document.getElementsByName() — позволяет получить элементы по их имени.
-     document.getElementsByTagName() — позволяет получить элементы по имени тега.
-     */
 
-    /*Получение елемента по атриббуту id*/
-    var idsElement = document.getElementById('content-id');
-    console.log(idsElement);
+    var goods = [
+        {
+            name: 'Iphone',
+            price: 9000
+        },
+        {
+            name: 'Р§РµС…РѕР»',
+            price: 900
+        }
+    ];
 
-    /*document.getElementsByClassName() — позволяет получить элементы по их классу*/
-    var classElements = document.getElementsByClassName('test-class');
-    console.log(classElements);
+    var basket = {
 
-    /*document.getElementsByTagName() — позволяет получить элементы по имени тега.*/
-    var tagElements = document.getElementsByTagName('p');
-    console.log(tagElements, '\n');
+        ListOfItems: [],
+
+        price: function () {
+
+        },
+        add: function (param1) {
+
+            var found = false;
+            for (var i = 0; i < goods.length; i++) {
+                if (goods[i].name == param1) {
+                    //РёСЃРєР°С‚СЊ РЅРµС‡РµРіРѕ СЌС‚Рѕ РїРµСЂРІС‹Р№ С‚РѕРІР°СЂ РІ РєРѕСЂР·РёРЅРµ
+                    if (this.ListOfItems.length == 0) {
+                        //РІСЃС‚Р°РІР»СЏРµРј
+                        this.ListOfItems.push(goods[i]);
+                        //Сѓ РїРѕСЃР»РµРґРЅРµРіРѕ РІСЃС‚Р°РІР»РµРЅРЅРѕРіРѕ С‚РѕРІР°СЂР° РІРІРѕРґРёРј РЅРѕРІРѕРµ СЃРІРѕР№СЃС‚РІРѕ
+                        //РРЅРґРµРєСЃ РїРѕСЃР»РµРґРЅРµРіРѕ РІСЃС‚Р°РІР»РµРЅРЅРѕРіРѕ  - СЌС‚Рѕ РґР»РёРЅР° РјР°СЃСЃРёРІР° -1 РїРѕС‚РѕРјСѓ С‡С‚Рѕ РёРЅРґРµРєСЃР°С†РёСЏ СЃ 0
+                        this.ListOfItems[this.ListOfItems.length - 1].count = 1;
+                        found = true;
+                        /*if(this.ListOfItems[i].hasOwnProperty('count'))
+                         {alert('dfff');
+                         }*/
+
+                        //found = true;
+
+                    } else {
+                        //РїРѕРїСЂРѕР±СѓРµРј РЅР°Р№С‚Рё С‚РѕРІР°СЂ РІ РєРѕСЂР·РёРЅРµ СЃ С‚РµРј Р¶Рµ РёРјРµРЅРµРј
+                        for (var f = 0; f < this.ListOfItems.length; f++) {
+                            //РЅР°С€Р»Рё  - СѓРІРµР»РёС‡РёРІР°РµРј СЃС‡РµС‚С‡РёРє
+                            if (this.ListOfItems[f].name == param1) {
+                                found = true;
+                                this.ListOfItems[f].count++;
+                            }
+
+                        }
+
+                        //РЅРµ РЅР°С€Р»Рё РІ РєРѕСЂР·РёРЅРµ Р·РЅР°С‡РёС‚ РІСЃРµ С‚Р°РєРё РІСЃС‚Р°РІР»СЏРµРј
+                        if (goods[i].name == param1) {
+                            this.ListOfItems.push(goods[i]);
+                            //Сѓ РїРѕСЃР»РµРґРЅРµРіРѕ РІСЃС‚Р°РІР»РµРЅРЅРѕРіРѕ С‚РѕРІР°СЂР° РІРІРѕРґРёРј РЅРѕРІРѕРµ СЃРІРѕР№СЃС‚РІРѕ
+                            this.ListOfItems[this.ListOfItems.length - 1].count = 1;
+                            found = true;
+
+                        }
+
+                    }
+                    break;
+                }
+            }
+
+            if (!found) {
+                alert('РўРѕРІР°СЂР° РЅРµС‚');
+                var confirmed = confirm('Р’С‹ С…РѕС‚РёС‚Рµ РїРѕРїСЂРѕР±РѕРІР°С‚СЊ РµС‰Рµ СЂР°Р·?');
+                if (confirmed) {
+                    var message = prompt('Р’РІРµСЃС‚Рё С‚РѕРІР°СЂ');
+
+                    basket.add(message);
+                }
+                if (!confirmed) {
+                    basket.InBasket();
+                }
+
+            }
+            if (found == true) {
+
+                document.write('Р”РѕР±Р°РІР»РµРЅ ' + param1 + '<br>');
+            }
 
 
-    /*Поиск дочерних едементов*/
-    console.log("Есть ли дочерние елементы: " + idsElement.hasChildNodes());
-    console.log("Список дочерних елементов: " , idsElement.childNodes, '\n');
+        },
+        addItems: function () {
+            var confirmed = confirm('Р’С‹ С…РѕС‚РёС‚Рµ РґРѕР±Р°РІРёС‚СЊ С‚РѕРІР°СЂ?');
 
-    /*Доступ к дочерним елементам по индексу или с помощью метода*/
-    console.log("Доступ к дочернему елементу по индексу: " , idsElement.childNodes[0]);
-    console.log("Доступ к дочернему елементу с помощью метода: " , idsElement.childNodes.item(1), '\n');
+            if (confirmed) {
+                var message = prompt('Р’РІРµСЃС‚Рё С‚РѕРІР°СЂ');
 
+                basket.add(message);
 
-    console.log('Доступ к первому дочернему елементу: ', idsElement.firstChild);
-    console.log('Доступ к последнему дочернему елементу: ', idsElement.lastChild);
+                var b = function () {
+                    var confirmed = confirm('Р’С‹ С…РѕС‚РёС‚Рµ РґРѕР±Р°РІРёС‚ РµС‰Рµ С‚РѕРІР°СЂ?');
 
-    console.log("Доступ к родительскому элементу: " , idsElement.parentNode , '\n');
+                    if (confirmed) {
+                        var message = prompt('Р’РІРµСЃС‚Рё С‚РѕРІР°СЂ');
+                        basket.add(message);
+                        return b();
+                    }
+                    if (!confirmed) {
+                        basket.InBasket();
+                    }
 
+                }
 
-    /**
-     * ELEMENT_NODE(1) — узел представляющий собой элемент (тег).
-     * ATTRIBUTE_NODE(2) — узел представляющий собой атрибут элемента.
-     * TEXT_NODE(3) — узел представляющий собой текст (текст параграфа, текст ссылки и т.д.).
-     * COMMENT_NODE(8) — узел представляет собой комментарий в HTML коде.
-     * DOCUMENT_NODE(9) — узел представляет собой документ, является корнем остальных узлов.
-     **/
-
-    var dictionaryTypes = {
-        "1" : "ELEMENT_NODE",
-        "2" : "ATTRIBUTE_NODE",
-        "3" : 'TEXT_NODE',
-        "4" : "COMMENT_NODE"
-    };
+                return b();
 
 
-    for (var i =0; i < idsElement.childNodes.length; i++) {
+            }
+            if (!confirmed) {
+                alert('РџСЂРѕРіСЂР°РјРјР° Р·Р°РІРµСЂС€РµРЅР°');
+                basket.InBasket();
 
-        console.log(i + ". Дочерний элемент:" , idsElement.childNodes[i]);
-        console.log("Имя узла:" + idsElement.childNodes[i].nodeName);
-        console.log("Имя тега:" + idsElement.childNodes[i].tagName);
-        console.log("Тип узла: " + dictionaryTypes[idsElement.childNodes[i].nodeType]);
-        console.log("Содержимое узла: " + idsElement.childNodes[i].data);
-        console.log("Содержимое nodeValue: " + idsElement.childNodes[i].nodeValue);
-        console.log("Содержимое innerHTML: " + idsElement.childNodes[i].innerHTML);
-        //console.log("Аттрибуты узла: " , idsElement.childNodes[i].attributes);
+            }
+        },
 
-        //Некоторые узлы не содержат аттрибутов
-        if (idsElement.childNodes[i].attributes) {
-            console.log('Аттрибуты узла: ', idsElement.childNodes[i].attributes, "\n");
-        } else {
-            console.log('Узел не содержит аттрибутов.\n')
+
+        InBasket: function () {
+            var a = 0;
+            for (var i = 0; i < this.ListOfItems.length; i++) {
+                if (basket.ListOfItems.length > 0) {
+                    document.write('Р’ РєРѕСЂР·РёРЅРµ ' + this.ListOfItems[i].name + ' Р¦РµРЅР°: ' + this.ListOfItems[i].price + '<br>');
+                    a += this.ListOfItems[i].price * this.ListOfItems[i].count;
+                    document.write(' РљРѕР»РёС‡РµСЃС‚РІРѕ С‚РѕРІР°СЂРѕРІ - ' + basket.ListOfItems[i].count + '<br>');
+
+                } else {
+                    document.write('Р’ РєРѕСЂР·РёРЅРµ РїСѓСЃС‚Рѕ' + '<br>');
+                }
+                //document.write(' РљРѕР»РёС‡РµСЃС‚РІРѕ С‚РѕРІР°СЂРѕРІ - ' + basket.ListOfItems[i].count + '<br>');
+                document.write('РС‚РѕРіРѕ ' + a + '<br>');
+
+            }
+
+
+        },
+        delItem: function () {
+            var confirmed = confirm('Р’С‹ С…РѕС‚РёС‚Рµ СѓРґР°Р»РёС‚СЊ С‚РѕРІР°СЂ?');
+
+
+            if (confirmed) {
+                var message = prompt('Р’РІРµСЃС‚Рё С‚РѕРІР°СЂ РґР»СЏ СѓРґР°Р»РµРЅРёСЏ');
+                //var s;
+                for (var i = 0; i < basket.ListOfItems.length; i++) {
+                    if (basket.ListOfItems[i].name == message) {
+                        if (basket.ListOfItems[i].count == 1) {
+                            this.ListOfItems.splice(i, 1);
+                            document.write('РЈРґР°Р»РµРЅ ' + message + '<br>');
+                            basket.InBasket();
+                            break;
+
+                        } else {
+                            document.write('РЈРґР°Р»РµРЅ ' + message + '<br>');
+                            //this.ListOfItems.splice(i, 1);
+                            basket.ListOfItems[i].count--;
+                            basket.InBasket();
+                            break;
+                        }
+
+                    }
+                }
+            }
+            if (!confirmed) {
+                basket.InBasket();
+            }
+
         }
     }
 
-    /*Получение список дочерних елементов исключая текстовые узлы*/
-    console.log("Дочерние елементы без текстовых узлов: ", idsElement.children);
 
+    basket.addItems();
 
-    /*Получение следующего узла дерева по уровню*/
-    console.log("Следующий елемент по уровню: ", idsElement.nextSibling.nextSibling);
-    console.log("Предыдущий елемент по уровню: ", idsElement.previousSibling.previousSibling);
-
-
-    /*Получение значение инпута*/
-    console.log(document.getElementById('input-text').value)
-
+    basket.delItem();
+    basket.InBasket();
+    //console.log(basket.ListOfItems);
+    //console.log(basket.sum(basket.ListOfItems));
 
 </script>
+
 </body>
 </html>
