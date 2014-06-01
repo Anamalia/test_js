@@ -1,12 +1,34 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
-<head>
-    <title></title>
-</head>
+<head><meta charset="utf-8"></head>
 <body>
-    <script>
-        alert('rtrt');
-    </script>
-    <p>gfgdshfdsh </p>
+<div>Первый</div>
+
+<!-- комментарий... -->
+
+<p>Второй</p>
+
+<script>
+
+    function getNextElement(elem) {
+        if(elem.nextElementSibling !== undefined) {
+            return elem.nextElementSibling;
+        }
+        var cur = elem.nextSibling;
+        while(cur && cur.nodeType != 1) {
+            cur = cur.nextSibling;
+        }
+        return cur;
+
+    }
+
+    alert(getNextElement(document.body.children[0]).tagName); // P
+
+    alert(getNextElement(document.body.lastChild)); // null
+
+</script>
+
 </body>
+
 </html>
+Напишите функцию getNextElement(elem), которая возвращает следующий за elem узел-элемент (игнорирует остальные узлы).
