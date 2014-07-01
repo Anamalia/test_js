@@ -54,7 +54,7 @@
 
     <input type="button" value="I button" onclick="picks()"> 
 
-    <input type="button" value="I Button">
+    <input type="button" value="I Button" onclick="receives()">
 
 <script type="text/javascript">
     
@@ -188,6 +188,20 @@
      /**  
      * 5. Написать функцию которая получает на входе елемент и выводит в консоль все елементы с таким же тегом на ее уровне.
      */
+    function receives(){
+         var body = document.body;
+         if(body.nodeType == 1){
+             for(var i = 0; i < body.children.length; i++){
+                 var tagName = body[i];
+                 var tag = tagName[i].getElementsByTagName('div');
+                 if(tag == true){
+                     //for(var j = 0; j < tag.body.children.length; i++){
+                         console.log(tag);
+                     }
+                 }
+             }
+         //}
+     }
 </script>
 </body>
 </html>
