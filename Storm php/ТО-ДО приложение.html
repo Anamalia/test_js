@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <script>
+        var catalog = {
+            new2: new Date(),
+            receivingEntries : [],
+            questionAddRecord : function () {
+                var confirmed = confirm('Хотите ли вы добавить запись?')
+                if(confirmed) {
+                    this.addingRecord();
+                }
+                if(!confirmed) {
+                    alert('Это было ваше решение');
+                }
+            },
+            addingRecord: function () {
+                var titleRecord = prompt('Введите название вашей записи', '');
+                var maintenanceRecords = prompt('Введите содержание записи', '');
+                var confirmed = confirm ('Статус попеченное?');
+                if(confirmed) {
+                    this.receivingEntries.push({record: titleRecord, contents: maintenanceRecords, date: this.new2, result: 'выполнено <br>'});
+                    this.result();
+                }
+                if(!confirmed) {
+                    this.receivingEntries.push({record: titleRecord, contents: maintenanceRecords, date: this.new2, result: 'не выполнено'});
+                    this.result();
+                }
+
+            },
+            result: function () {
+                for (var i = 0; i < this.receivingEntries.length; i++) {
+                    if (catalog.receivingEntries.length > 0) {
+                        document.write(this.receivingEntries[i].record + '<br>' + this.receivingEntries[i].contents + '<br>' + 'Запись добавлена ' + this.receivingEntries[i].date + '<br>' + 'Статус имеет: ' + this.receivingEntries[i].result);
+                    } else {
+                        document.write(' ни каких записей нет ');
+                    }
+                }
+            },
+            delRecord: function () {
+                var confirmed = confirm('Вы хотите удалить запись?')
+                if(confirmed) {
+                    this.deleteRecord();
+                }
+            },
+            deleteRecord: function () {
+                var titleRecord = prompt('Введите название записи для удалания', '');
+                var del = false;
+                for(var i = 0; i < this.receivingEntries.length; i++) {
+                    if(this.receivingEntries[i].record == titleRecord) {
+                        this.receivingEntries.splice(i, 1);
+                        document.write('Ваша запись удалена' + titleRecord + '<br>');
+                        del = true;
+                        break;
+                    }
+                    if(!del) {
+                        var confirmed = confirm('такой записи не существует');
+                        if(confirmed) {
+                            this.deleteRecord()
+                        }
+                        if(!confirmed) {
+                            this.questionAddRecord();
+                        }
+                    }
+                }
+
+            }
+        };
+
+        catalog.questionAddRecord();
+        catalog.delRecord();
+    </script>
+</body>
+</html>
