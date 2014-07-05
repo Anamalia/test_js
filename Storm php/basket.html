@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <script>
+        var globalShop = [
+            {
+                name: 'пк',
+                price: 100
+            },
+            {
+                name: 'телефон',
+                price: 120
+            }
+        ];
+        var basket = {
+            allItems: [],
+            quantityGoods: [],
+            price: function () {
+            },
+            addItems: function (param1) {
+                var internet = false;
+                for (var i = 0; i < globalShop.length; i++) {
+                    if(globalShop[i].name == param1) {
+                        internet = true;
+                        this.allItems.push( globalShop[i] );
+                        break;
+                    }
+                }
+                if(!internet) {
+                    alert('товара нет');
+                    return;
+                }
+                if(internet == true) {
+                    //document.write('добавлен ' + param1  );
+                }
+            },
+            removeBasket: function () {
+                var sms = confirm('Вы хотите купить товар?');
+                if(sms) {
+                    var message = prompt('Введите название товара?', '');
+                    if(message) {
+                        basket.addItems(message);
+                    }
+                    if (!message) {
+                        var mms = confirm('вы хорошо подумали?');
+                        if(mms) {
+                            var message = prompt('Введите название товара?', '');
+                            basket.addItems(message);
+                        }
+                    }
+                    var numberTwo = function () {
+                        var two = confirm('Вы хотите еще добавить товар?');
+                        if(two) {
+                            var messege = prompt('введите товар еще');
+                            basket.addItems(messege);
+                        }
+
+                    }
+                    return numberTwo();
+                }
+                if(!sms) {
+                    alert('товар не найден');
+                    var a = function () {
+                        var confir = confirm('Вы хотите попробовать еще раз?');
+                        if (confir) {
+                            var message = prompt('Ввести товар');
+                            basket.addItems(message);
+                            basket.allItems();
+                        }
+                    }
+                    return a();
+                }
+            },
+            calculateItems: function () {
+
+            },
+            inBasket: function () {
+                var a = 0;
+                for (var i = 0; i < this.allItems.length; i++) {
+                    if (basket.allItems.length > 0) {
+                        document.write('</br> В корзине ' + this.allItems[i].name   + '</br> Цена: ' + this.allItems[i].price + '</br> Количество - ' + basket.allItems.length);
+                        a += this.allItems[i].price;
+                        document.write('</br> Итого ' + a);
+                    } else {
+                        document.write(' В корзине пусто ');
+                    }
+                }
+            }
+        };
+
+        basket.removeBasket();
+        basket.inBasket();
+    </script>
+</body>
+</html>
