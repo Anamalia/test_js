@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <script>
+        /*Прототипы
+         *
+         *
+         ============== Наследование ==================
+         1. Построить иерархию классов сотрудников компании. Должен быть присутсвовать базовый класс Сотрудник со свойствами определнный в конструкторе
+         такими как - Имя, Возраст, Пол. Создать иерархию классов Директор, Зам.Директора, Охранник, Менеджер, Уборщица. Иерархия должна быть многоуровневая.
+         Пример: Все сотрудники могут приходить и уходить на работу, брать отпуск и увольняться по собсвтенному желанию, получать зарплату ( этот функционал должен присутствовать у всего дерева иерархии)
+         2. На следующем уровне могут присутствовать класс Начальник у Employees1.go();
+         Employees2.go();которого будут методы увольнять, отдавать приказы. От этого класса могут наследоватбся классы Директор, Главный менеджер.
+         3. Классы Уборщица или Охранник могут наследоватся напрямую от Сотрудника и только добавлять некоторые свои специфичные методы - такие как охранять или убирать.
+         4. Реализовать Класс который перееопределяет один из методово родительского класса иерархии. Например: класс Стажер должен переопрделять метод получать зарплату потому что стажеры не получают зарплату.
+         5. Реализовать класс Компания который может принимать на работу сотрудников и уволнять их, по решению одного из директоров. Придобавлении нового сотрудника должно определятmся какого типа класс был создан ( Менеджер, директор и т.д.) и добавлятся в соотвествующий массив внутри комании.
+         Только директор может инициировать увольнение внутри компании.
+
+
+         ==============Расширение базовых классов=======
+
+         1. Расширить базовый класс HTMLElement через прототипы чтобы у любого объекта который получаем через  document.getElementById или подобным способом появился новй метод.
+         Данные метод должен выводить в консоль содержимое себя и содержимое ближайщих родственников слева и справа на том же уровне HTML дерева если такие присутсвуют.
+         * */
+
+        function Employees(name, age, sex){              //сотрудники компании
+            this.name = name;
+            this.age = age;
+            this.sex = sex;
+
+        }
+        Employees.prototype.go = function () {
+            console.log('Ваше Имя ' + this.name + ' вам лет ' + this.age + ' вы ' + this.sex);
+        };
+        //var Employees1 = new Employees('Петя', '25', 'мужчина');
+        //var Employees2 = new Employees('Маша', '30', 'женщина');
+
+        /*Оба екземпляра класса имеют метод go потому что он прописан в прототипе класса ( а если глубже в прототипе самой функции) */
+        //    Employees1.go();
+        //    Employees2.go();
+        function Director(){//Директор
+            Employees.apply(this, arguments);
+            this.sale = 'Director';
+        }
+
+        function Chiefmanager(){    //старший менеджер
+            Director.apply(this, arguments);
+            this.sale = 'Chiefmanager';
+        }
+        function JrManager(){//младший менеджер
+            Chiefmanager.apply(this, arguments);
+            this.sale = 'JrManager';
+        }
+        function Cleaner()
+        {
+            this.type = 'Cleaner';
+        }
+        Cleaner.prototype.clean = function () {};
+
+        function Security()
+        {
+            this.type = 'Security';
+        }
+        Security.prototype.guard = function () {};
+
+        function inheritBest(Child, Parent) {
+            var c = Child.prototype.constructor;
+            var F = function () {};
+            F.prototype = Parent.prototype;
+            Child.prototype = new F();
+            Child.prototype.constructor = c;
+        }
+        inheritBest(Director, Employees);
+        var chiefmanager1 = new Director('Вася', '35', 'мужчина');
+        chiefmanager1.go();
+
+        function ActionStaff(toComeToWork, vac, receiveSalary){              //свойства всех сотрудников
+            this.toComeToWork = toComeToWork;
+            this.vac = vac;
+            this.receiveSalary = receiveSalary;
+
+        }
+        ActionStaff.prototype.action = function () {
+            console.log('Вы пришли на работу в ' + this.toComeToWork + ' вы ' + this.vac + ' ваша зарплата ' + this.receiveSalary);
+        };
+
+        function Director1(){//Директор
+            ActionStaff.apply(this, arguments);
+            this.sale = 'Director';
+        }
+        inheritBest(Director1, ActionStaff);
+        var director1 = new Director1('8:00', 'в отпуске', '2000 грн');
+        director1.action();
+
+        function Cleaner()
+        {   Director1.apply(this, arguments);
+            this.type = 'Cleaner';
+        }
+        inheritBest(Cleaner, ActionStaff);
+        var cleaner1 = new Cleaner('8:30', 'на работе', '2500 грн');
+        cleaner1.action();
+
+        function Trainee (){
+            this.type = 'Trainee';
+        }
+        inheritBest(Trainee, ActionStaff);
+        var newTrainee = new Trainee();
+        Trainee.prototype.action = function () {
+            console.log('Я не получаю еще зарплату, потому что, Я - ' + this.type);
+        };
+        newTrainee.action ();
+    </script>
+</body>
+</html>
